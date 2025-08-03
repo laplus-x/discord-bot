@@ -2,6 +2,7 @@ import { CommandType } from '@/types';
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 export const ping: CommandType = {
+    type: "chore",
     data: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('Replies with Pong!'),

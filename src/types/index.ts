@@ -1,9 +1,10 @@
-import { ClientEvents, Collection, SlashCommandBuilder } from 'discord.js';
+import { ClientEvents, Collection, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder } from 'discord.js';
 
 export type CommandCollection = { commands: Collection<string, any> }
 
 export type CommandType = {
-    data: SlashCommandBuilder
+    type?: string,
+    data: SlashCommandBuilder | SlashCommandOptionsOnlyBuilder
     execute: (...args: any) => Promise<void>
 }
 
