@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "nodenext",
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "declaration": true,
+    "declarationMap": true,
+  },
+  "include": ["src"]
+}

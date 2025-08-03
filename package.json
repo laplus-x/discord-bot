@@ -1,0 +1,17 @@
+{
+  "name": "discord-bot",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "node --import=tsx src/main.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "tsx": "^4.20.3",
+    "typescript": "~5.8.3"
+  },
+  "dependencies": {
+    "discord.js": "^14.21.0",
+    "dotenv": "^17.2.1"
+  }
+}
