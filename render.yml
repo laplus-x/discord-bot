@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: discord-bot
+    env: node
+    buildCommand: bun install
+    startCommand: bun run dev
+    plan: free
+    autoDeploy: false
+    envVars:
+      - fromGroup: discord-bot-config
