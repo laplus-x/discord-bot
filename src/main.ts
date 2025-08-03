@@ -3,13 +3,18 @@ import { config } from "dotenv";
 import http from "http";
 import * as commands from "./commands";
 import * as events from "./events";
-import { ClientType } from "./types";
+import { CommandCollection } from "./types";
 
 config()
 
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
-}) as ClientType;
+  intents:
+    [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildVoiceStates,
+    ]
+}) as Client & CommandCollection;
 
 client.commands = new Collection();
 

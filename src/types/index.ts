@@ -1,6 +1,6 @@
-import { Client, ClientEvents, Collection, SlashCommandBuilder } from 'discord.js';
+import { ClientEvents, Collection, SlashCommandBuilder } from 'discord.js';
 
-export type ClientType = Client & { commands: Collection<string, any> }
+export type CommandCollection = { commands: Collection<string, any> }
 
 export type CommandType = {
     data: SlashCommandBuilder
