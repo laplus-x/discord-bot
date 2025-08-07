@@ -1,7 +1,7 @@
-import { CommandCollection, EventType } from '@/types';
+import { ClientEventType, CommandCollection } from '@/types';
 import { Client, ClientEvents, Events, Interaction } from 'discord.js';
 
-export const interactionCreate: EventType = {
+export const interactionCreate: ClientEventType = {
     name: Events.InteractionCreate as keyof ClientEvents,
     once: false,
     execute: async (interaction: Interaction) => {
