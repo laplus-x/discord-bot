@@ -1,11 +1,13 @@
+import 'reflect-metadata';
+
+import { CommandCollection, CommandType, EnvironmentType } from "@/types";
+import { Config } from "@/utilities";
 import { ChatInputCommandInteraction, Client, Collection, EmbedBuilder, GatewayIntentBits, REST, Routes, SlashCommandBuilder } from "discord.js";
-import { config } from "dotenv";
 import http from "http";
 import * as commands from "./commands";
 import * as events from "./events";
-import { CommandCollection, CommandType } from "./types";
 
-config()
+const config = Config.bind(EnvironmentType)
 
 const client = new Client({
   intents:
@@ -70,7 +72,7 @@ for (const event of Object.values(events)) {
   }
 }
 
-const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+const rest = new REST().setToken(config.DISCORD_TOKEN);
 
 (async () => {
   try {
@@ -79,12 +81,12 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
     const body = client.commands.map(i => i.data.toJSON())
 
     await rest.put(
-      Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
+      Routes.applicationCommands(config.DISCORD_CLIENT_ID),
       { body },
     );
 
     const data = await rest.put(
-      Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID),
+      Routes.applicationGuildCommands(config.DISCORD_CLIENT_ID, config.DISCORD_GUILD_ID),
       { body },
     ) as any;
 
@@ -95,9 +97,9 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 })();
 
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(config.DISCORD_TOKEN);
 
 http.createServer(function (req, res) {
   res.write("alive")
   res.end()
-}).listen(process.env.APP_PORT)
+}).listen(config.APP_PORT)
