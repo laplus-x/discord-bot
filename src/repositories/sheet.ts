@@ -1,7 +1,7 @@
 import { EnvironmentType } from '@/types';
 import { Config, Functions } from '@/utilities';
+import { JWT } from 'google-auth-library';
 import { google } from 'googleapis';
-import path from 'path';
 
 const config = Config.bind(EnvironmentType)
 
@@ -45,12 +45,14 @@ export class GoogleSheet {
   }
 
   private async auth() {
-    const auth = new google.auth.GoogleAuth({
-      keyFile: path.resolve(process.cwd(), this.options.keyFile),
+    const json = Buffer.from(config.GOOGLE_APPLICATION_CREDENTIALS, "base64").toString('utf-8');
+    const secret = JSON.parse(json)
+    const auth = new JWT({
+      email: secret.client_email,
+      key: secret.private_key,
       scopes: 'https://www.googleapis.com/auth/spreadsheets',
     });
-    const client = await auth.getClient();
-    const token = await client.getAccessToken();
+    const token = await auth.getAccessToken();
     if (!token) {
       throw new Error('Failed to obtain access token for Google Sheets API');
     }
