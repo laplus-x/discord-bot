@@ -4,13 +4,24 @@
     "module": "nodenext",
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "outDir": "./dist",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
     "declaration": true,
     "declarationMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
   },
   "include": ["src"]
 }
