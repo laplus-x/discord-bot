@@ -5,6 +5,7 @@ import { config } from "dotenv"
 export class Config {
     public static bind<T>(out: Constructor<T>): T {
         const raw = config()
-        return plainToClass(out, raw.parsed ?? {}, { exposeUnsetFields: false, enableImplicitConversion: true })
+        const data = Object.assign(raw.parsed ?? {}, process.env)
+        return plainToClass(out, data, { exposeUnsetFields: false, enableImplicitConversion: true })
     }
 }

@@ -46,7 +46,6 @@ export class GoogleSheet {
 
   private async auth() {
     const json = Buffer.from(this.options.cred, "base64").toString('utf-8');
-    console.log(json)
     const secret = JSON.parse(json)
     const auth = new JWT({
       email: secret.client_email,
