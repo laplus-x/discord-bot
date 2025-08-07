@@ -44,20 +44,22 @@ export const eventQuery: CommandType = {
 
             const channel = channels.get(i.channelId) as any;
             i.channelId = channel?.name ?? i.channelId;
-            
+
             const data = ClassConverter.serialize(i)
             return Object.values(data)
         })
 
         const content = table([header, ...rows], {
-            header: {
-                alignment: 'center',
-                content: 'Event Tracking',
-            },
             columnDefault: {
-                width: 15,
+                width: 10,
             },
+            drawVerticalLine: (lineIndex, columnCount) => lineIndex === 0 || lineIndex === columnCount
         })
+        if (content.length > 2000) {
+            await interaction.reply({ content: 'Data is too large to display in a single message.' });
+            return;
+        }
+        console.log(content)
         await interaction.reply({ content: '```' + content + '```' });
     },
 };

@@ -2,13 +2,20 @@ import { Constructor } from "@/types";
 import { instanceToPlain, plainToInstance, Transform, TransformFnParams } from "class-transformer";
 
 export function TransformDate() {
-  const toPlain = Transform((params: TransformFnParams) => (params.value as Date).toISOString(), {
+  const toPlain = Transform((params: TransformFnParams) => {
+    const val = params.value;
+    return val instanceof Date ? val.toISOString() : val;
+  }, {
     toPlainOnly: true,
   });
 
-  const toClass = Transform((params: TransformFnParams) => new Date(params.value), {
+  const toClass = Transform((params: TransformFnParams) => {
+    const val = params.value;
+    return typeof val === 'string' ? new Date(val) : val;
+  }, {
     toClassOnly: true,
   });
+
 
   return function (target: any, key: string) {
     toPlain(target, key);

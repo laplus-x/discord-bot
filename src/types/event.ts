@@ -1,5 +1,5 @@
 import { TransformDate } from "@/converters";
-import { Expose, Type } from "class-transformer";
+import { Expose } from "class-transformer";
 
 export const EventType = {
     EnterVoiceChannel: "EnterVoiceChannel",
@@ -20,7 +20,6 @@ export class EventTrackingResource {
     @Expose({ name: "user_id" })
     userId: string;
     
-    @Type(() => Date)
     @Expose({ name: "timestamp" })
     @TransformDate()
     timestamp: Date;
