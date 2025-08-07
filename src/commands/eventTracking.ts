@@ -25,12 +25,16 @@ export const eventQuery: CommandType = {
         const start = interaction.options.getString('start', true);
         const end = interaction.options.getString('end', true);
 
+        if (!interaction.deferred && !interaction.replied) {
+            await interaction.deferReply();
+        }
+
         const eventTracking = await EventTracking.getInstance();
 
         const data = await eventTracking.get(start, end);
 
         if (data.length === 0) {
-            await interaction.reply({ content: 'No data found for the specified range.' });
+            await interaction.editReply({ content: 'No data found for the specified range.' });
             return
         }
 
@@ -56,10 +60,10 @@ export const eventQuery: CommandType = {
             drawVerticalLine: (lineIndex, columnCount) => lineIndex === 0 || lineIndex === columnCount
         })
         if (content.length > 2000) {
-            await interaction.reply({ content: 'Data is too large to display in a single message.' });
+            await interaction.editReply({ content: 'Data is too large to display in a single message.' });
             return;
         }
         console.log(content)
-        await interaction.reply({ content: '```' + content + '```' });
+        await interaction.editReply({ content: '```' + content + '```' });
     },
 };

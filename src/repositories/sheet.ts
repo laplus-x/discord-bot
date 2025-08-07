@@ -23,7 +23,7 @@ export class GoogleSheetRangeType {
 
 export interface GoogleSheetOptions {
   spreadsheetId: string;
-  keyFile: string;
+  cred: string;
 }
 
 export class GoogleSheet {
@@ -32,7 +32,7 @@ export class GoogleSheet {
 
   private static instance?: GoogleSheet;
 
-  constructor(options: GoogleSheetOptions = { spreadsheetId: config.SHEET_ID, keyFile: config.GOOGLE_APPLICATION_CREDENTIALS }) {
+  constructor(options: GoogleSheetOptions = { spreadsheetId: config.SHEET_ID, cred: config.GOOGLE_APPLICATION_CREDENTIALS }) {
     this.options = options;
   }
 
@@ -45,7 +45,8 @@ export class GoogleSheet {
   }
 
   private async auth() {
-    const json = Buffer.from(config.GOOGLE_APPLICATION_CREDENTIALS, "base64").toString('utf-8');
+    const json = Buffer.from(this.options.cred, "base64").toString('utf-8');
+    console.log(json)
     const secret = JSON.parse(json)
     const auth = new JWT({
       email: secret.client_email,
